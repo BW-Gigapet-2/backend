@@ -36,7 +36,7 @@ exports.up = function(knex) {
       tbl.integer('treats').defaultTo(0);
       tbl
         .integer('child_id')
-        .notNullable()
+        //.notNullable()
         .references('id')
         .inTable('children')
         .onUpdate('CASCADE')
