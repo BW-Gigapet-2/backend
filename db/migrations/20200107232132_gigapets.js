@@ -10,12 +10,13 @@ exports.up = function(knex) {
     })
     .createTable('children', (tbl) => {
       tbl.increments('id').primary();
-      tbl.string('name').notNullable();
+      tbl.string('name')
+      //.notNullable();
       tbl
         .integer('parent_id')
         .references('id')
         .inTable('parents')
-        .notNullable()
+        //.notNullable()
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
       tbl
