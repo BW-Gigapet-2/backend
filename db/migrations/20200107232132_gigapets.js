@@ -27,7 +27,7 @@ exports.up = function(knex) {
     })
     .createTable('food_entries', (tbl) => {
       tbl.increments('id').primary();
-      tbl.date('date').defaultTo(new Date());
+      tbl.datetime('date').defaultTo(knex.fn.now());
       tbl.integer('dairy').defaultTo(0);
       tbl.integer('fruits').defaultTo(0);
       tbl.integer('grains').defaultTo(0);

@@ -22,7 +22,8 @@ router.post('/register', async (req, res) => {
       const token = await genToken(user);
       res.status(201).json({ id: user.id, username: user.username, token });
     } catch (err) {
-      res.status(500).json(err);
+      res.status(500).json(err)
+      console.log(err);
     }
   }
 });
