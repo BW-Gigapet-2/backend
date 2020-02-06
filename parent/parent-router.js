@@ -34,11 +34,11 @@ router.post('/food', async (req, res) => {
   // /:childId'
   const newEntry = req.body;
   const { childId } = req.params;
-  console.log(newEntry, 'NEW ENTRY HERE', childId);
+  //console.log(newEntry, 'NEW ENTRY HERE', childId);
   try {
     const addedEntry = await DB.addEntry( newEntry);
     //childId,
-    console.log(addedEntry);
+    console.log( newEntry, 'new En');
     res.status(201).json(addedEntry);
   } catch (err) {
     res.status(500).json(err);
