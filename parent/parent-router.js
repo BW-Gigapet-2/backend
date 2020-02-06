@@ -31,12 +31,13 @@ router.get('/children/:parentId', async (req, res) => {
 // Add food entry by child Id
 
 router.post('/food', async (req, res) => {
-  //:childId'
+  // /:childId'
   const newEntry = req.body;
   const { childId } = req.params;
   console.log(newEntry, 'NEW ENTRY HERE', childId);
   try {
-    const addedEntry = await DB.addEntry(childId, newEntry);
+    const addedEntry = await DB.addEntry( newEntry);
+    //childId,
     console.log(addedEntry);
     res.status(201).json(addedEntry);
   } catch (err) {
