@@ -1,66 +1,53 @@
-const router = require('express').Router();
-const jwt = require('jsonwebtoken');
-const DB = require('../knex-queries/model.js');
-const bcrypt = require('bcryptjs');
-const fs = require('fs');
-if (fs.existsSync('config/secrets.js')) {
-  var secret = require('../config/secrets.js');
-} else {
-  var secret = { jwtSecret: process.env.JWT_SECRET };
-}
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const router = require("express").Router();
 
-router.post('/register', async (req, res) => {
-  const creds = req.body;
-  if (!(creds.username && creds.password)) {
-    res.status(406).json({ error: 'Valid Username and Password Required' });
-  } else {
-    const hash = bcrypt.hashSync(creds.password, 10);
-    creds.password = hash;
+const { jwtSecret } = require("../config/secrets.js");
 
-    try {
-      const user = await DB.addUser(creds);
-      const token = await genToken(user);
-      res.status(201).json({ id: user.id, username: user.username, token });
-    } catch (err) {
-      res.status(500).json(err)
-      console.log(err);
-    }
-  }
+const Users = require("../users/users-model.js");
+
+router.post("/register", (req, res) => {
+  let user = req.body;
+  const hash = bcrypt.hashSync(user.password, 10);
+  user.password = hash;
+
+  Users.add(user)
+    .then(saved => {
+      res.status(201).json(saved);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json(error);
+    });
 });
 
-router.post('/login', async (req, res) => {
-  try {
-    if (!(req.body.username && req.body.password)) {
-      res.status(406).json({ error: 'Invalid Username or Password' });
-    } else {
-      let { username, password } = req.body;
+router.post("/login", (req, res) => {
+  let { username, password } = req.body;
 
-      const user = await DB.login({ username }).first();
-
-      bcrypt.compareSync(password, user.password);
-
+  Users.findBy({ username })
+    .first()
+    .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
-        const token = await genToken(user);
-        res.status(202).json({ id: user.id, username: user.username, token });
+        const token = signToken(user);
+        res.status(200).json({ token });
       } else {
-        res.status(406).json({ message: 'Invalid Credentials' });
+        res.status(401).json({ message: "Invalid Credentials" });
       }
-    }
-  } catch (err) {
-    res.status(500).json(err);
-  }
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json(error);
+    });
 });
 
-async function genToken(user) {
+function signToken(user) {
   const payload = {
-    userid: user.id,
-    username: user.username
+    subject: user.id
   };
-
-  const options = { expiresIn: '2h' };
-
-  const token = await jwt.sign(payload, secret.jwtSecret, options);
-
-  return token;
+  const options = {
+    expiresIn: "1d"
+  };
+  return jwt.sign(payload, jwtSecret, options);
 }
+
 module.exports = router;
