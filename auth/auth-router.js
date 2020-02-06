@@ -36,8 +36,10 @@ router.post('/login', async (req, res) => {
       let { username, password } = req.body;
 
       const user = await DB.login({ username }).first();
-
+      console.log(username)
+      console.log(user, 'user')
       bcrypt.compareSync(password, user.password);
+      
 
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = await genToken(user);
@@ -48,6 +50,7 @@ router.post('/login', async (req, res) => {
     }
   } catch (err) {
     res.status(500).json(err);
+    console.log(err);
   }
 });
 
