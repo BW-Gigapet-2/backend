@@ -30,7 +30,7 @@ exports.up = function(knex) {
       tbl.increments('id').primary();
       tbl.datetime('date').defaultTo(knex.fn.now());
       tbl.integer('dairy').defaultTo(0);
-      tbl.integer('fruits').defaultTo(0);
+      tbl.integer('fruits')//.defaultTo(0);
       tbl.integer('grains').defaultTo(0);
       tbl.integer('proteins').defaultTo(0);
       tbl.integer('vegetables').defaultTo(0);

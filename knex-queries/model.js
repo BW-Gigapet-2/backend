@@ -61,14 +61,26 @@ function findByUnique(uniqueIdent) {
     .first();
 }
 
-async function addEntry(id, entry) {
-  const newEntry = { ...entry, child_id: id };
-  const [addedEntry] = await db('food_entries')
-    .returning(['child_id', 'id', 'date'])
-    .insert(newEntry);
-
-  return addedEntry;
+async function addEntry(entry){
+  return db('food_entries')
+  .insert(entry, 'id')
+  .then(id => {
+    console.log(id, 'console log id')
+    return db('food_entries')
+    .returning('*')
+    .where({ id })
+    .first();
+  });
 }
+
+// async function addEntry(id, entry) {
+//   const newEntry = { ...entry, child_id: id };
+//   const [addedEntry] = await db('food_entries')
+//     .returning(['child_id', 'id', 'date'])
+//     .insert(newEntry);
+
+//   return addedEntry;
+// }
 
 async function removeEntry(entrynum) {
   console.log(entrynum, 'ENTRY ENTRY');
