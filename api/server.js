@@ -1,18 +1,22 @@
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
+const helmet = require("helmet");
+
+const authenticate = require("../auth/authenticate-middleware.js");
+const authRouter = require("../auth/auth-router.js");
+const usersRouter = require("../users/users-router.js");
+const petsRouter = require("../pets/pets-router.js");
+const mealsRouter = require("../meals/meals-router.js");
+
 const server = express();
-const cors = require('cors');
-const helmet = require('helmet');
-const authenticate = require('../auth/auth-middleware.js');
-const authRouter = require('../auth/auth-router.js');
-const parentRouter = require('../parent/parent-router');
-server.use(express.json());
+
 server.use(helmet());
 server.use(cors());
-server.use('/api/auth', authRouter);
-server.use('/api/parents', authenticate, parentRouter);
+server.use(express.json());
 
-server.get('/', (req, res) => {
-  res.status(200).json({ api: 'running' });
-});
+server.use("/api/auth", authRouter);
+server.use("/api/users", authenticate, usersRouter);
+server.use("/api/pets", authenticate, petsRouter);
+server.use("/api/meals", authenticate, mealsRouter);
 
 module.exports = server;
