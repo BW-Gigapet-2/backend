@@ -11,7 +11,7 @@ exports.up = function(knex) {
     .createTable("meals", tbl => {
       tbl.increments();
       tbl.string("name").notNullable();
-      tbl.date("date");
+      // tbl.date("date");
       tbl.integer("servings");
       tbl.string("category");
     });
