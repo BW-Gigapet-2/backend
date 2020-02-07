@@ -4,7 +4,7 @@ exports.seed = function(knex) {
         {
           id: 20,
           name: "pizza",
-          date: 11 / 11 / 2020,
+          date: 11/11/2020,
           servings: 1,
           category: "pizza",
           pet_id: 20
@@ -12,7 +12,7 @@ exports.seed = function(knex) {
         {
           id: 21,
           name: "turkey sandwich",
-          date: 10 / 10 / 2020,
+          date: 10/10/2020,
           servings: 3,
           category: "sandwich",
           pet_id: 20
@@ -20,7 +20,7 @@ exports.seed = function(knex) {
         {
           id: 22,
           name: "pineapple",
-          date: 12 / 13 / 2020,
+          date: 12/13/2020,
           servings: 11,
           category: "fruit",
           pet_id: 20
@@ -28,7 +28,7 @@ exports.seed = function(knex) {
         {
           id: 23,
           name: "pizza",
-          date: 11 / 11 / 2020,
+          date: 11/11/2020,
           servings: 1,
           category: "pizza",
           pet_id: 21
@@ -36,7 +36,7 @@ exports.seed = function(knex) {
         {
           id: 24,
           name: "turkey sandwich",
-          date: 10 / 10 / 2020,
+          date: 10/10/2020,
           servings: 3,
           category: "sandwich",
           pet_id: 21
@@ -44,7 +44,7 @@ exports.seed = function(knex) {
         {
           id: 25,
           name: "pineapple",
-          date: 12 / 13 / 2020,
+          date: 12/13/2020,
           servings: 11,
           category: "fruit",
           pet_id: 21
@@ -52,7 +52,7 @@ exports.seed = function(knex) {
         {
           id: 26,
           name: "pizza",
-          date: 11 / 11 / 2020,
+          date: 11/11/2020,
           servings: 1,
           category: "pizza",
           pet_id: 22
@@ -60,7 +60,7 @@ exports.seed = function(knex) {
         {
           id: 27,
           name: "turkey sandwich",
-          date: 10 / 10 / 2020,
+          date: 10/10/2020,
           servings: 3,
           category: "sandwich",
           pet_id: 22
@@ -68,7 +68,7 @@ exports.seed = function(knex) {
         {
           id: 28,
           name: "pineapple",
-          date: 12 / 13 / 2020,
+          date: 12/13/2020,
           servings: 11,
           category: "fruit",
           pet_id: 22

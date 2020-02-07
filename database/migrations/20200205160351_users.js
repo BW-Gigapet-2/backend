@@ -12,7 +12,7 @@ exports.up = function(knex) {
         .unsigned()
         .notNullable()
         .references("id")
-        .inTable("users")
+        // .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     })
@@ -29,5 +29,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex.schema.dropTableIfExists("pets");
+  return knex.schema.dropTableIfExists("meals").dropTableIfExists("pets");
 };
